@@ -1,0 +1,56 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO
+from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+import os
+
+# Initialize extensions
+db = SQLAlchemy()
+socketio = SocketIO()
+migrate = Migrate()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+
+def create_app():
+    app = Flask(__name__)
+    
+    # Load configuration
+    app.config.from_object('app.config.Config')
+    
+    # Initialize extensions with app
+    db.init_app(app)
+    socketio.init_app(app, cors_allowed_origins="*")
+    migrate.init_app(app, db)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    
+    # Configure login manager
+    login_manager.login_view = 'auth.login'
+    login_manager.login_message = 'Please log in to access this page.'
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        from app.models import User
+        return User.query.get(int(user_id))
+    
+    # Register blueprints
+    from app.routes.auth import auth_bp
+    from app.routes.main import main_bp
+    from app.routes.posts import posts_bp
+    from app.routes.users import users_bp
+    from app.routes.messages import messages_bp
+    from app.routes.api import api_bp
+    
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(main_bp)
+    app.register_blueprint(posts_bp)
+    app.register_blueprint(users_bp)
+    app.register_blueprint(messages_bp)
+    app.register_blueprint(api_bp)
+
+    # Import SocketIO event handlers
+    from app.controllers import socketio_controller
+
+    return app

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Color Test - co.nnecti.ng</title>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9fafb;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #093FB4;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .color-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .color-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .color-preview {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .color-info {
+            padding: 15px;
+            background: white;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .color-hex {
+            font-family: 'Courier New', monospace;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .primary-blue { background-color: #093FB4; }
+        .secondary-blue { background-color: #00CAFF; }
+        .primary-green { background-color: #06923E; }
+        .light-gray { background-color: #EAEFEF; color: #374151; }
+        
+        .button-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: #093FB4;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+        
+        .btn-secondary {
+            background-color: #00CAFF;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #0ea5e9;
+        }
+        
+        .btn-success {
+            background-color: #06923E;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #15803d;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: #093FB4;
+            border: 2px solid #093FB4;
+        }
+        
+        .btn-outline:hover {
+            background-color: #093FB4;
+            color: white;
+        }
+        
+        .btn-outline-success {
+            background-color: transparent;
+            color: #06923E;
+            border: 2px solid #06923E;
+        }
+        
+        .btn-outline-success:hover {
+            background-color: #06923E;
+            color: white;
+        }
+        
+        .usage-examples {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+        }
+        
+        .code-block {
+            background-color: #1f2937;
+            color: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 co.nnecti.ng Color Palette</h1>
+        
+        <div class="color-showcase">
+            <div class="color-card">
+                <div class="color-preview primary-blue">Primary Blue</div>
+                <div class="color-info">
+                    <div class="color-name">Primary Blue</div>
+                    <div class="color-hex">#093FB4</div>
+                </div>
+            </div>
+            
+            <div class="color-card">
+                <div class="color-preview secondary-blue">Secondary Blue</div>
+                <div class="color-info">
+                    <div class="color-name">Secondary Blue</div>
+                    <div class="color-hex">#00CAFF</div>
+                </div>
+            </div>
+            
+            <div class="color-card">
+                <div class="color-preview primary-green">Primary Green</div>
+                <div class="color-info">
+                    <div class="color-name">Primary Green</div>
+                    <div class="color-hex">#06923E</div>
+                </div>
+            </div>
+            
+            <div class="color-card">
+                <div class="color-preview light-gray">Light Gray</div>
+                <div class="color-info">
+                    <div class="color-name">Light Gray</div>
+                    <div class="color-hex">#EAEFEF</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Button Examples</h2>
+        <div class="button-showcase">
+            <button class="btn btn-primary">Primary Button</button>
+            <button class="btn btn-secondary">Secondary Button</button>
+            <button class="btn btn-success">Success Button</button>
+            <button class="btn btn-outline">Outline Button</button>
+            <button class="btn btn-outline-success">Outline Success</button>
+        </div>
+        
+        <div class="usage-examples">
+            <h3>Usage in Tailwind CSS</h3>
+            <p>The new primary green color can be used in your React components:</p>
+            
+            <div class="code-block">
+&lt;!-- Background color --&gt;
+&lt;div className="bg-primary-green"&gt;Green background&lt;/div&gt;
+
+&lt;!-- Text color --&gt;
+&lt;span className="text-primary-green"&gt;Green text&lt;/span&gt;
+
+&lt;!-- Border color --&gt;
+&lt;div className="border-primary-green"&gt;Green border&lt;/div&gt;
+
+&lt;!-- CSS Classes --&gt;
+&lt;button className="btn-success"&gt;Success Button&lt;/button&gt;
+&lt;button className="btn-outline-success"&gt;Outline Success&lt;/button&gt;
+            </div>
+            
+            <h3>Suggested Use Cases</h3>
+            <ul>
+                <li><strong>Success states:</strong> Form submissions, successful actions</li>
+                <li><strong>Positive actions:</strong> "Save", "Confirm", "Accept" buttons</li>
+                <li><strong>Status indicators:</strong> Online status, verified badges</li>
+                <li><strong>Progress indicators:</strong> Completed steps, achievements</li>
+                <li><strong>Call-to-action:</strong> Secondary CTAs that need attention</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

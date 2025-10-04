@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vogel-Inspired Design Showcase - co.nnecti.ng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles from our enhanced design system */
+        .gradient-primary {
+            background: linear-gradient(135deg, #093FB4 0%, #00CAFF 100%);
+        }
+        
+        .gradient-success {
+            background: linear-gradient(135deg, #06923E 0%, #10b981 100%);
+        }
+        
+        .gradient-purple {
+            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+        }
+        
+        .gradient-subtle {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .card-elevated {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .post-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        
+        .post-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn-primary {
+            background: #093FB4;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(9, 63, 180, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(9, 63, 180, 0.4);
+        }
+        
+        .btn-success {
+            background: #06923E;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(6, 146, 62, 0.3);
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(6, 146, 62, 0.4);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .interactive-scale {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .interactive-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(6, 146, 62, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(6, 146, 62, 0.8);
+            }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Modern Navigation Bar -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-18">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex items-center space-x-2 group">
+                        <div class="w-10 h-10 gradient-primary rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300">
+                            <span class="text-white font-bold text-lg">C</span>
+                        </div>
+                        <span class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+                            co.nnecti.ng
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 max-w-lg mx-6">
+                    <div class="relative">
+                        <input
+                            type="text"
+                            placeholder="Search for users, posts, hashtags..."
+                            class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-2xl bg-gray-50/80 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-transparent focus:bg-white transition-all duration-300 backdrop-blur-sm"
+                        />
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Actions -->
+                <div class="flex items-center space-x-4">
+                    <button class="p-3 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100/80 transition-all duration-300 backdrop-blur-sm group">
+                        <svg class="h-5 w-5 group-hover:scale-110 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.5 3.75a6 6 0 0 1 6 6v2.25a.75.75 0 0 0 .75.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75v-.75a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 0 .75-.75V9.75a6 6 0 0 1 6-6z" />
+                        </svg>
+                    </button>
+                    
+                    <div class="flex items-center space-x-3 p-2 rounded-xl hover:bg-gray-100/80 transition-all duration-300 backdrop-blur-sm group">
+                        <div class="w-10 h-10 gradient-primary rounded-xl flex items-center justify-center text-white text-sm font-medium shadow-lg group-hover:shadow-xl transition-all duration-300">
+                            JD
+                        </div>
+                        <span class="text-sm font-medium text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
+                            @johndoe
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center mb-12 animate-fade-in">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                Vogel-Inspired Design System
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Modern, clean, and interactive design elements inspired by contemporary social media platforms
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column - Cards & Components -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Enhanced Cards Section -->
+                <div class="animate-fade-in">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Enhanced Card System</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Standard Card -->
+                        <div class="card interactive-scale">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Standard Card</h3>
+                            <p class="text-gray-600 mb-4">Clean design with subtle shadows and rounded corners.</p>
+                            <button class="btn-primary">Learn More</button>
+                        </div>
+                        
+                        <!-- Elevated Card -->
+                        <div class="card-elevated interactive-scale">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Elevated Card</h3>
+                            <p class="text-gray-600 mb-4">Enhanced shadow depth for important content.</p>
+                            <button class="btn-success">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post Cards Section -->
+                <div class="animate-fade-in">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Interactive Post Cards</h2>
+                    <div class="space-y-4">
+                        <!-- Sample Post 1 -->
+                        <div class="post-card">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 gradient-primary rounded-xl flex items-center justify-center text-white font-medium">
+                                    JD
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <h4 class="font-semibold text-gray-900">John Doe</h4>
+                                        <span class="text-gray-500 text-sm">@johndoe</span>
+                                        <span class="text-gray-400 text-sm">• 2h</span>
+                                    </div>
+                                    <p class="text-gray-800 mb-3">
+                                        Just implemented the new Vogel-inspired design system! 🎨 The cards look amazing with the enhanced shadows and micro-animations. #design #ui
+                                    </p>
+                                    <div class="flex items-center space-x-6 text-gray-500">
+                                        <button class="flex items-center space-x-2 hover:text-blue-500 transition-colors duration-300">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                            </svg>
+                                            <span>12</span>
+                                        </button>
+                                        <button class="flex items-center space-x-2 hover:text-green-500 transition-colors duration-300">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                            </svg>
+                                            <span>24</span>
+                                        </button>
+                                        <button class="flex items-center space-x-2 hover:text-purple-500 transition-colors duration-300">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                                            </svg>
+                                            <span>5</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Sidebar Components -->
+            <div class="space-y-8">
+                <!-- Trending Section -->
+                <div class="card-elevated animate-fade-in">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-8 h-8 gradient-success rounded-lg flex items-center justify-center">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900">Trending Now</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="group flex justify-between items-center p-3 rounded-xl hover:bg-gray-50 transition-all duration-300">
+                            <span class="text-blue-600 font-medium group-hover:scale-105 transition-all duration-300">#VogelDesign</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded-full">142 posts</span>
+                                <div class="w-2 h-2 bg-green-500 rounded-full pulse-glow"></div>
+                            </div>
+                        </div>
+                        <div class="group flex justify-between items-center p-3 rounded-xl hover:bg-gray-50 transition-all duration-300">
+                            <span class="text-blue-600 font-medium group-hover:scale-105 transition-all duration-300">#ModernUI</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded-full">89 posts</span>
+                                <div class="w-2 h-2 bg-green-500 rounded-full pulse-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Palette -->
+                <div class="card-elevated animate-fade-in">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-6">Enhanced Color System</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="w-16 h-16 gradient-primary rounded-xl mx-auto mb-2 interactive-scale"></div>
+                            <p class="text-sm font-medium">Primary</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 gradient-success rounded-xl mx-auto mb-2 interactive-scale"></div>
+                            <p class="text-sm font-medium">Success</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 gradient-purple rounded-xl mx-auto mb-2 interactive-scale"></div>
+                            <p class="text-sm font-medium">Accent</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-16 h-16 gradient-subtle rounded-xl mx-auto mb-2 interactive-scale"></div>
+                            <p class="text-sm font-medium">Subtle</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Glass Effect Demo -->
+                <div class="glass-effect rounded-xl p-6 animate-fade-in">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Glass Effect</h3>
+                    <p class="text-gray-700 mb-4">Modern glassmorphism design with backdrop blur and transparency.</p>
+                    <button class="btn-primary">Explore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
