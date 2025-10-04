@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { renderPostContent } from '../utils/postUtils';
-import axios from 'axios';
+import api from '../utils/api';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 
 const Profile = () => {
@@ -47,7 +47,7 @@ const Profile = () => {
   const fetchUserProfile = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/users/@${handle}`);
+      const response = await api.get(`/users/@${handle}`);
       setProfileUser(response.data.user);
       setPosts(response.data.user.posts || []);
 
@@ -69,7 +69,7 @@ const Profile = () => {
 
   const handleFollow = async () => {
     try {
-      await axios.post(`/users/@${handle}/follow`);
+      await api.post(`/users/@${handle}/follow`);
       setProfileUser(prev => ({
         ...prev,
         is_following: true,
@@ -82,7 +82,7 @@ const Profile = () => {
 
   const handleUnfollow = async () => {
     try {
-      await axios.post(`/users/@${handle}/unfollow`);
+      await api.post(`/users/@${handle}/unfollow`);
       setProfileUser(prev => ({
         ...prev,
         is_following: false,
@@ -150,7 +150,7 @@ const Profile = () => {
     }
 
     try {
-      await axios.delete(`/posts/${postId}`);
+      await api.delete(`/posts/${postId}`);
       // Remove the post from the local state
       setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
     } catch (error) {

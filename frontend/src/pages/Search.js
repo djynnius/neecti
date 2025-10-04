@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { renderPostContent } from '../utils/postUtils';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 
@@ -25,7 +25,7 @@ const Search = () => {
 
     setLoading(true);
     try {
-      const response = await axios.get('/api/search', {
+      const response = await api.get('/api/search', {
         params: { q: searchQuery, type }
       });
       setResults(response.data.results);
@@ -51,7 +51,7 @@ const Search = () => {
     }
 
     try {
-      const response = await axios.get('/api/search/suggestions', {
+      const response = await api.get('/api/search/suggestions', {
         params: { q: searchQuery }
       });
       setSuggestions(response.data.suggestions);
@@ -204,7 +204,7 @@ const UserCard = ({ user }) => {
     setLoading(true);
     try {
       const endpoint = following ? 'unfollow' : 'follow';
-      await axios.post(`/users/@${user.handle}/${endpoint}`);
+      await api.post(`/users/@${user.handle}/${endpoint}`);
       setFollowing(!following);
     } catch (error) {
       console.error('Follow error:', error);

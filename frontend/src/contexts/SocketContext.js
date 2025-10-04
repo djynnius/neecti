@@ -2,6 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { useAuth } from './AuthContext';
 
+// Configure Socket.IO URL based on environment
+const SOCKET_URL = process.env.REACT_APP_API_URL ||
+  (process.env.NODE_ENV === 'production' ? 'http://localhost:5000' : 'http://localhost:5000');
+
 const SocketContext = createContext();
 
 export const useSocket = () => {
@@ -21,7 +25,7 @@ export const SocketProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       // Initialize socket connection
-      const newSocket = io('http://localhost:5000', {
+      const newSocket = io(SOCKET_URL, {
         withCredentials: true,
         transports: ['websocket', 'polling']
       });

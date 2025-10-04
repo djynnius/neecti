@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { useSocket } from '../contexts/SocketContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -71,7 +71,7 @@ const Home = () => {
 
   const fetchTimeline = async () => {
     try {
-      const response = await axios.get('/posts/timeline');
+      const response = await api.get('/posts/timeline');
       setPosts(response.data.posts);
     } catch (error) {
       console.error('Error fetching timeline:', error);
@@ -86,7 +86,7 @@ const Home = () => {
 
     setPosting(true);
     try {
-      const response = await axios.post('/posts/', {
+      const response = await api.post('/posts/', {
         content: newPost
       });
       setPosts([response.data.post, ...posts]);
@@ -113,7 +113,7 @@ const Home = () => {
     );
 
     try {
-      const response = await axios.post(`/posts/${postId}/like`);
+      const response = await api.post(`/posts/${postId}/like`);
       // The real-time update will handle the final state via socket
     } catch (error) {
       console.error('Error liking post:', error);
@@ -134,7 +134,7 @@ const Home = () => {
 
   const handleDelete = async (postId) => {
     try {
-      await axios.delete(`/posts/${postId}`);
+      await api.delete(`/posts/${postId}`);
       // Remove the post from the local state
       setPosts(prevPosts => prevPosts.filter(post => post.id !== postId));
     } catch (error) {

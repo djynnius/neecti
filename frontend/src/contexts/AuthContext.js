@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -15,8 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Configure axios defaults
-  axios.defaults.withCredentials = true;
+  // API configuration is handled in utils/api.js
 
   useEffect(() => {
     checkAuthStatus();
@@ -24,7 +23,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuthStatus = async () => {
     try {
-      const response = await axios.get('/auth/me');
+      const response = await api.get('/auth/me');
       setUser(response.data.user);
     } catch (error) {
       setUser(null);
@@ -35,33 +34,33 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await axios.post('/auth/login', credentials);
+      const response = await api.post('/auth/login', credentials);
       setUser(response.data.user);
       return { success: true, user: response.data.user };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Login failed' 
+      return {
+        success: false,
+        error: error.response?.data?.error || 'Login failed'
       };
     }
   };
 
   const register = async (userData) => {
     try {
-      const response = await axios.post('/auth/register', userData);
+      const response = await api.post('/auth/register', userData);
       setUser(response.data.user);
       return { success: true, user: response.data.user };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Registration failed' 
+      return {
+        success: false,
+        error: error.response?.data?.error || 'Registration failed'
       };
     }
   };
 
   const logout = async () => {
     try {
-      await axios.post('/auth/logout');
+      await api.post('/auth/logout');
       setUser(null);
       return { success: true };
     } catch (error) {
@@ -73,25 +72,25 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (profileData) => {
     try {
-      const response = await axios.put('/auth/profile', profileData);
+      const response = await api.put('/auth/profile', profileData);
       setUser(response.data.user);
       return { success: true, user: response.data.user };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Profile update failed' 
+      return {
+        success: false,
+        error: error.response?.data?.error || 'Profile update failed'
       };
     }
   };
 
   const changePassword = async (passwordData) => {
     try {
-      await axios.post('/auth/change-password', passwordData);
+      await api.post('/auth/change-password', passwordData);
       return { success: true };
     } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.error || 'Password change failed' 
+      return {
+        success: false,
+        error: error.response?.data?.error || 'Password change failed'
       };
     }
   };

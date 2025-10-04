@@ -4,6 +4,7 @@ from flask_socketio import SocketIO
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
+from flask_cors import CORS
 import os
 
 # Initialize extensions
@@ -12,6 +13,7 @@ socketio = SocketIO()
 migrate = Migrate()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
+cors = CORS()
 
 def create_app():
     app = Flask(__name__)
@@ -25,6 +27,13 @@ def create_app():
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
+
+    # Configure CORS
+    cors.init_app(app,
+                  origins=["https://localhost:8443", "http://localhost:3000"],
+                  supports_credentials=True,
+                  allow_headers=["Content-Type", "Authorization"],
+                  methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])
     
     # Configure login manager
     login_manager.login_view = 'auth.login'
