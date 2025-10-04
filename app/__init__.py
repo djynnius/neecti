@@ -30,7 +30,12 @@ def create_app():
 
     # Configure CORS
     cors.init_app(app,
-                  origins=["https://localhost:8443", "http://localhost:3000"],
+                  origins=[
+                      "https://localhost:8443",
+                      "http://localhost:3000",
+                      "https://co.nnecti.ng",
+                      "http://co.nnecti.ng"
+                  ],
                   supports_credentials=True,
                   allow_headers=["Content-Type", "Authorization"],
                   methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"])

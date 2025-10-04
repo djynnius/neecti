@@ -3,8 +3,31 @@ import io from 'socket.io-client';
 import { useAuth } from './AuthContext';
 
 // Configure Socket.IO URL based on environment
-const SOCKET_URL = process.env.REACT_APP_API_URL ||
-  (process.env.NODE_ENV === 'production' ? 'http://localhost:5000' : 'http://localhost:5000');
+const getSocketUrl = () => {
+  // If REACT_APP_API_URL is explicitly set, use it
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+
+  // For production deployment, detect the backend URL
+  if (process.env.NODE_ENV === 'production') {
+    const currentHost = window.location.hostname;
+    const currentProtocol = window.location.protocol;
+
+    // If deployed on co.nnecti.ng, use the same domain for API
+    if (currentHost === 'co.nnecti.ng') {
+      return `${currentProtocol}//api.co.nnecti.ng`;
+    }
+
+    // For other production deployments, assume API is on same host with different port
+    return `${currentProtocol}//${currentHost}:5000`;
+  }
+
+  // For development, use localhost
+  return 'http://localhost:5000';
+};
+
+const SOCKET_URL = getSocketUrl();
 
 const SocketContext = createContext();
 

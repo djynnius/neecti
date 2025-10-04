@@ -1,8 +1,31 @@
 import axios from 'axios';
 
 // Configure API base URL based on environment
-const API_BASE_URL = process.env.REACT_APP_API_URL || 
-  (process.env.NODE_ENV === 'production' ? 'http://localhost:5000' : '');
+const getApiBaseUrl = () => {
+  // If REACT_APP_API_URL is explicitly set, use it
+  if (process.env.REACT_APP_API_URL) {
+    return process.env.REACT_APP_API_URL;
+  }
+
+  // For production deployment, detect the backend URL
+  if (process.env.NODE_ENV === 'production') {
+    const currentHost = window.location.hostname;
+    const currentProtocol = window.location.protocol;
+
+    // If deployed on co.nnecti.ng, use the same domain for API
+    if (currentHost === 'co.nnecti.ng') {
+      return `${currentProtocol}//api.co.nnecti.ng`;
+    }
+
+    // For other production deployments, assume API is on same host with different port
+    return `${currentProtocol}//${currentHost}:5000`;
+  }
+
+  // For development, use empty string (relies on proxy)
+  return '';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 // Create axios instance with base configuration
 const api = axios.create({
