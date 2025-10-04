@@ -11,6 +11,17 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'postgresql://oracle:urimandthumim@10.102.109.141:5432/connecting'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # Database connection settings
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_timeout': 20,
+        'pool_recycle': 300,
+        'pool_pre_ping': True,
+        'connect_args': {
+            'connect_timeout': 10,
+            'application_name': 'co.nnecti.ng'
+        }
+    }
     
     # MongoDB configuration for translation cache
     MONGODB_HOST = os.environ.get('MONGODB_HOST') or '10.102.109.249'

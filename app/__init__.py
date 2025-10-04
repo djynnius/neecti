@@ -6,6 +6,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_cors import CORS
 import os
+import logging
 
 # Initialize extensions
 db = SQLAlchemy()
@@ -17,9 +18,16 @@ cors = CORS()
 
 def create_app():
     app = Flask(__name__)
-    
+
     # Load configuration
     app.config.from_object('app.config.Config')
+
+    # Configure logging
+    if not app.debug:
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+        )
     
     # Initialize extensions with app
     db.init_app(app)

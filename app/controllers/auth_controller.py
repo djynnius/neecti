@@ -79,45 +79,80 @@ class AuthController:
     @staticmethod
     def login():
         """Handle user login"""
-        data = request.get_json()
+        import time
+        import logging
+
+        start_time = time.time()
+        logging.info(f"Login attempt started for request from {request.remote_addr}")
+
+        try:
+            data = request.get_json()
+
+            login_field = data.get('login', '').strip()  # Can be email, phone, or handle
+            password = data.get('password', '')
+            remember_me = data.get('remember_me', False)
+
+            if not login_field or not password:
+                return jsonify({'error': 'Login and password are required'}), 400
         
-        login_field = data.get('login', '').strip()  # Can be email, phone, or handle
-        password = data.get('password', '')
-        remember_me = data.get('remember_me', False)
-        
-        if not login_field or not password:
-            return jsonify({'error': 'Login and password are required'}), 400
-        
-        # Try to find user by email, phone, or handle
-        user = None
-        if '@' in login_field:
-            # Email login
-            user = User.query.filter_by(email=login_field.lower()).first()
-        elif login_field.isdigit() or '+' in login_field:
-            # Phone number login
-            user = User.query.filter_by(phone_number=login_field).first()
-        else:
-            # Handle login
-            user = User.query.filter_by(handle=login_field.lower()).first()
-        
-        if not user or not user.check_password(password):
-            return jsonify({'error': 'Invalid credentials'}), 401
-        
-        if not user.is_active:
-            return jsonify({'error': 'Account is deactivated'}), 401
-        
-        # Update last seen
-        from datetime import datetime
-        user.last_seen = datetime.utcnow()
-        db.session.commit()
-        
-        # Log in the user
-        login_user(user, remember=remember_me)
-        
-        return jsonify({
-            'message': 'Login successful',
-            'user': user.to_dict()
-        }), 200
+            # Try to find user by email, phone, or handle
+            user = None
+            lookup_start = time.time()
+
+            if '@' in login_field:
+                # Email login
+                user = User.query.filter_by(email=login_field.lower()).first()
+            elif login_field.isdigit() or '+' in login_field:
+                # Phone number login
+                user = User.query.filter_by(phone_number=login_field).first()
+            else:
+                # Handle login
+                user = User.query.filter_by(handle=login_field.lower()).first()
+
+            lookup_time = time.time() - lookup_start
+            logging.info(f"User lookup completed in {lookup_time:.3f}s")
+
+            if not user:
+                logging.warning(f"Login failed: User '{login_field}' not found")
+                return jsonify({'error': 'Invalid credentials'}), 401
+
+            # Check password
+            password_start = time.time()
+            if not user.check_password(password):
+                logging.warning(f"Login failed: Invalid password for user '{login_field}'")
+                return jsonify({'error': 'Invalid credentials'}), 401
+
+            password_time = time.time() - password_start
+            logging.info(f"Password check completed in {password_time:.3f}s")
+
+            if not user.is_active:
+                logging.warning(f"Login failed: Account '{login_field}' is deactivated")
+                return jsonify({'error': 'Account is deactivated'}), 401
+
+            # Update last seen
+            update_start = time.time()
+            from datetime import datetime
+            user.last_seen = datetime.utcnow()
+            db.session.commit()
+            update_time = time.time() - update_start
+            logging.info(f"Database update completed in {update_time:.3f}s")
+
+            # Log in the user
+            login_user(user, remember=remember_me)
+
+            total_time = time.time() - start_time
+            logging.info(f"Login successful for '{login_field}' in {total_time:.3f}s")
+
+            return jsonify({
+                'message': 'Login successful',
+                'user': user.to_dict()
+            }), 200
+
+        except Exception as e:
+            total_time = time.time() - start_time
+            logging.error(f"Login error after {total_time:.3f}s: {str(e)}")
+            db.session.rollback()
+            return jsonify({'error': 'Login failed due to server error'}), 500
     
     @staticmethod
     def logout():
